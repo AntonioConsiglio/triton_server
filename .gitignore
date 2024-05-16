@@ -1,0 +1,13 @@
+stable_diffusion_vae/
+stablediffusion_service/
+sdiffusion_encoder/
+fastapi/
+database/
+export_model.ipynb
+test.ipynb
+*.onnx
+*.pt
+*.plan
+*.pyc
+.vscode/
+*.jpg

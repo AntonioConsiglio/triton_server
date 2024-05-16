@@ -1,0 +1,31 @@
+version: '0'
+
+services:
+  frontend_streamlit:
+    build:
+        dockerfile: frontend/Dockerfile
+    ports:
+      - 8501:8501
+    depends_on:
+      - triton_server
+  
+  triton_server:
+    build:
+        dockerfile: triton_models/Dockerfile
+    volumes:
+      - ./triton_models/models:/models
+    ports:
+      - 8200:8000 #HTTP requests
+      - 8201:8001 #GRPC request
+      - 8202:8002 # ROMETHEUS METRICS
+    shm_size: 1g
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    runtime: nvidia
+    # tty: true
+    # devices:
+    #   - "/dev:/dev" # Add this line if necessary, depending on your setup
+
+    command: ["tritonserver", "--model-repository=/models"]
+  

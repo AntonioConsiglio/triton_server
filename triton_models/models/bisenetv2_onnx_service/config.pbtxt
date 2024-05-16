@@ -1,0 +1,25 @@
+name: "bisenetv2_onnx_service"
+platform: "onnxruntime_onnx"
+
+input [
+  {
+    name: "image"
+    data_type: TYPE_FP32
+    dims: [1, 3, 512, 512]
+  }
+]
+
+output [
+  {
+    name: "output"
+    data_type: TYPE_INT32
+    dims: [1, 512, 512]
+  }
+]
+
+instance_group [
+  {
+    kind: KIND_GPU
+    count: 1
+  }
+]

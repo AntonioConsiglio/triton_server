@@ -1,0 +1,28 @@
+name: "bisenetv2_service"
+backend: "python"
+
+max_batch_size: 1
+
+input [
+  {
+    name: "image"
+    data_type: TYPE_FP32
+    format: FORMAT_NCHW
+    dims: [3, 512, 512]
+  }
+]
+
+output [
+  {
+    name: "output_mask"
+    data_type: TYPE_INT32
+    dims: [1, 512, 512]
+  }
+]
+
+instance_group [
+  {
+    kind: KIND_GPU
+    count: 1
+  }
+]
