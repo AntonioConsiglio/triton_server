@@ -6,8 +6,13 @@ services:
         dockerfile: frontend/Dockerfile
     ports:
       - 8501:8501
+    volumes:
+      - ./frontend:/frontend_streamlit
+    environment:
+      DATABASE_URL: postgresql+psycopg2://user:password@db/mydatabase
     depends_on:
       - triton_server
+      - db
   
   triton_server:
     build:
@@ -23,9 +28,19 @@ services:
       memlock: -1
       stack: 67108864
     runtime: nvidia
-    # tty: true
-    # devices:
-    #   - "/dev:/dev" # Add this line if necessary, depending on your setup
 
     command: ["tritonserver", "--model-repository=/models"]
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
+    # volumes:
+    #   - ./database:/var/lib/postgresql/data
+
+
   

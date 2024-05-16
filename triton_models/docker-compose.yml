@@ -4,9 +4,8 @@ services:
   triton_server:
     build:
         dockerfile: ./Dockerfile
-    # image: 990ee793b3d0
     volumes:
-      - /home/aconsiglio/projects/triton_server/triton_models/models:/models
+      - ./triton_server/triton_models/models:/models
     ports:
       - 8000:8000 #HTTP requests
       - 8001:8001 #GRPC request

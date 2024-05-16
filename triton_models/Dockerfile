@@ -1,5 +1,4 @@
 # Use NVIDIA Triton Inference Server as base image
-# FROM nvcr.io/nvidia/tritonserver:21.11-py3
 FROM nvcr.io/nvidia/tritonserver:24.03-py3
 
 # Set working directory
